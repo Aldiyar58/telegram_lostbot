@@ -1,6 +1,6 @@
 from aiogram import types, Dispatcher
 from create_bot import dp, bot
-from keyboards import kb_lost_find, kb_kotigoria1, kb_stop, kb_kotigoria2
+from keyboards import kb_lost_find, kb_kotigoria1, kb_kotigoria2
 from aiogram.types import ReplyKeyboardRemove
 from data_base import sqlite_db
 
@@ -13,8 +13,15 @@ async def command_start(message: types.Message):
 # раздел Функцей вывода данных из баз данных
 # ______________________________________________________________________________________________________________________
 async def command_lost_box(message: types.Message):
-    await bot.send_message(message.from_user.id, 'Вот вес Католог', reply_markup=kb_lost_find)
-    await sqlite_db.sql_read(message)
+    await bot.send_message(message.from_user.id, 'Вот вес Католог:', reply_markup=kb_lost_find)
+    await bot.send_message(message.from_user.id, 'Раздел спортивных вещей:')
+    await sqlite_db.sql_read_sport(message)
+    await bot.send_message(message.from_user.id, 'Раздел школных вещей:')
+    await sqlite_db.sql_read_school(message)
+    await bot.send_message(message.from_user.id, 'Раздел Акссесуаров:')
+    await sqlite_db.sql_read_decorations(message)
+    await bot.send_message(message.from_user.id, 'Раздел гаджотов:')
+    await sqlite_db.sql_read_technique(message)
 
 async def command_lost_box_cloth(message: types.Message):
     await bot.send_message(message.from_user.id, 'Вот раздел: Спортивные принадлежности и одежда ', reply_markup=kb_lost_find)
